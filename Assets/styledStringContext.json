@@ -1,0 +1,22 @@
+{
+    "defaultFont": "Fonts/arial.ttf",
+    "loadFonts": [],
+    "fontAliases": [
+        {"alias": "arial_24", "size": 24.0,  "font": "Arial"},
+        {"alias": "arial_28", "size": 28.0,  "font": "Arial"}
+    ],
+
+    "colors": {
+        "red": "#ff0000ff",
+        "green": "lightseagreen",
+        "white": "white",
+        "blue": "rgb(0, 0, 255)"
+     },
+
+    "attachments": [
+        {"name": "chart", "anchorPoint": 0.4, "image": "svg/bar_chart.svg", "width": 48, "height": 48 },
+        {"name": "calc", "anchorPoint": 0.2, "image": "svg/calculator.svg", "width": 48, "height": 48 },
+        {"name": "warn", "anchorPoint": 0.4, "image": "warning_icon_small.png", "width": 64, "height": 64 },
+        {"name": "texture", "anchorPoint": 0.2, "image": "fire_icon.png", "width": 32, "height": 32 }
+    ]
+}
