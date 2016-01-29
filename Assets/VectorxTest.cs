@@ -116,7 +116,7 @@ public class VectorxTest : MonoBehaviour
 		//vectorx.svg.SvgContext.deserializeVectorBin (svgBinData, svg);
 
 		var colorStorage = new vectorx.ColorStorage (512, 512, null);
-		System.Byte value8 = 0xff;
+		//System.Byte value8 = 0xff;
 		colorStorage.data.memory.Seek (0, System.IO.SeekOrigin.Begin);
 		for (int i = 0; i < colorStorage.data.allocedLength; i++) 
 		{
@@ -134,17 +134,48 @@ public class VectorxTest : MonoBehaviour
 		System.Console.Write ("");
 	}
 
+	types.Data LoadFont(string file)
+	{
+		var asset = Resources.Load(file) as TextAsset;
+		var stream = new System.IO.MemoryStream (asset.bytes);
+		var data = types.Data.fromMemoryStream (stream,  asset.bytes.Length);
+
+		return data;
+	}
+
+	void TestFontRender()
+	{
+		var arialData = LoadFont ("fonts/arial.ttf");
+		var fontCache = new vectorx.font.FontCache (arialData);
+
+		var str = "abcdefghjiklmnopqrstuvwxyz";
+		var font = fontCache.createFontWithNameAndSize ("Arial", 16);
+		var color = new Color4F (1.0f, 0.0f, 0.0f, 1.0f);
+		var attrs = MainCs._createStringAttributes (new vectorx.font.AttributedRange(0, -1), font, color);
+		var attrString = new vectorx.font.AttributedString (str, attrs);
+
+		var colorStorage = new vectorx.ColorStorage (512, 512, null);
+		var context = new vectorx.font.FontContext ();
+		context.renderStringToColorStorage (attrString, colorStorage, null, null, null);
+
+		var texture = createTexture (colorStorage);
+		GetComponent<Renderer> ().material.mainTexture = texture;
+
+		System.Console.Write ("");
+	}
+
 	void Start () 
 	{
 		UnitySystemConsoleRedirector.Redirect();
 		System.Console.WriteLine ("Start () ");
 		//TestFloat ();
 		//TestData();
-		TestSvg();
 		//TestColorStorage();
 		//TestPixelFormatRenderer();
-
 		//DataTest.testAll ();
+
+		//TestSvg();
+		TestFontRender();
 	}
 	
 	// Update is called once per frame

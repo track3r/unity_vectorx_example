@@ -2,12 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/VectorxTest.cs">
     <Files>
-      <File FileName="Assets/VectorxTest.cs" Line="7" Column="26" />
+      <File FileName="Assets/VectorxTest.cs" Line="153" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/root1/develop/unity/cs_test/Assets/NewBehaviourScript.cs" line="135" column="1" />
+      <Breakpoint file="/Users/root1/develop/unity/cs_test/Assets/VectorxTest.cs" line="164" column="29" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
