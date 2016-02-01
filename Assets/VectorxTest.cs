@@ -2,7 +2,7 @@
 using System.Collections;
 using types;
 
-public class VectorxTest : MonoBehaviour 
+public class VectorxTest : MonoBehaviour, StyledStringResourceProvider
 {
 	public TextAsset svgXml;
 
@@ -133,8 +133,8 @@ public class VectorxTest : MonoBehaviour
 		GetComponent<Renderer> ().material.mainTexture = texture;
 		System.Console.Write ("");
 	}
-
-	types.Data LoadFont(string file)
+		
+	types.Data GetDataFromFile(string file)
 	{
 		var asset = Resources.Load(file) as TextAsset;
 		var stream = new System.IO.MemoryStream (asset.bytes);
@@ -143,9 +143,24 @@ public class VectorxTest : MonoBehaviour
 		return data;
 	}
 
+	vectorx.ColorStorage GetBitmapDataFromFile(string file)
+	{
+		var texture = Resources.Load (file) as Texture2D;
+		var bytes = texture.GetRawTextureData ();
+		var stream = new System.IO.MemoryStream(bytes);
+		var data = types.Data.fromMemoryStream (stream,  bytes.Length);
+
+		return new vectorx.ColorStorage (texture.width, texture.height, data);
+	}
+
+	types.Data loadFont(string file)
+	{
+		return GetDataFromFile(file);
+	}
+
 	void TestFontRender()
 	{
-		var arialData = LoadFont ("fonts/arial.ttf");
+		var arialData = loadFont ("fonts/arial.ttf");
 		var fontCache = new vectorx.font.FontCache (arialData);
 
 		var str = "abcdefghjiklmnopqrstuvwxyz";
@@ -162,6 +177,39 @@ public class VectorxTest : MonoBehaviour
 		GetComponent<Renderer> ().material.mainTexture = texture;
 
 		System.Console.Write ("");
+	}
+
+	//private static function loadImage(file: String, origDimensions: Vector2, dimensions: Vector2): ColorStorage
+	vectorx.ColorStorage loadImage(string file, types.Vector2 srcDim, types.Vector2 dstDim)
+	{
+		if (!file.EndsWith("svg.xml"))
+		{
+			return GetBitmapDataFromFile (file);
+		}
+
+		var colorStorage = new vectorx.ColorStorage ((int)dstDim.x, (int)dstDim.y, null);
+
+		var asset = Resources.Load(file) as TextAsset;
+		var xml = Xml.parse (asset.text);
+		var svg = vectorx.svg.SvgContext.parseSvg (xml);
+
+		var scaleX = dstDim.x / srcDim.x;
+		var scaleY = dstDim.y / srcDim.y;
+		var transform = lib.ha.core.geometry.AffineTransformer.scaler (scaleX, scaleY);
+
+		var svgContext = new vectorx.svg.SvgContext ();
+		svgContext.renderVectorBinToColorStorage (svg, colorStorage, transform);
+
+		return colorStorage;
+	}
+
+	void TestStyledString()
+	{
+		var configAsset = Resources.Load("Fonts/styledStringContext.json") as TextAsset;
+		var context = MainCs.createStyledStringContext (configAsset.text, this);
+		var str = "[f=arial_24,c=white]a[f=arial_28]bc[/f]djf{warn}lkdsjf{texture}lkfdsef{calc}[/]";
+		var storage = new vectorx.ColorStorage (512, 512, null);
+		context.renderStringToColorStorage (str, storage, null, null);
 	}
 
 	void Start () 
