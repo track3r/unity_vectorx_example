@@ -2,13 +2,15 @@
 using System.Collections;
 using types;
 
-public class VectorxTest : MonoBehaviour, StyledStringResourceProvider
+public class VectorxTest : MonoBehaviour
 {
 	public TextAsset svgXml;
 
+	private Vectorx.ResourceProvider provider;
+
 	void Awake()
 	{
-		
+		provider = new Vectorx.ResourceProvider ();
 	}
 
 	void TestFloat()
@@ -19,7 +21,7 @@ public class VectorxTest : MonoBehaviour, StyledStringResourceProvider
 		var writer = new System.IO.BinaryWriter (stream);
 		writer.Write (f);
 		stream.Seek (0, System.IO.SeekOrigin.Begin);
-		float f2 = reader.ReadSingle ();
+		//float f2 = reader.ReadSingle ();
 
 		stream.Seek (0, System.IO.SeekOrigin.Begin);
 		string str = "";
@@ -68,7 +70,7 @@ public class VectorxTest : MonoBehaviour, StyledStringResourceProvider
 		var colorStorage = new vectorx.ColorStorage (8, 8, null);
 		//System.UInt32 value = 0xff0000ff;
 		System.UInt32 value32 = 0xff0000ff;
-		System.Byte value8 = 0xff;
+		//System.Byte value8 = 0xff;
 		colorStorage.data.memory.Seek (0, System.IO.SeekOrigin.Begin);
 		for (int i = 0; i < colorStorage.data.allocedLength/4; i++) 
 		{
@@ -134,33 +136,11 @@ public class VectorxTest : MonoBehaviour, StyledStringResourceProvider
 		System.Console.Write ("");
 	}
 		
-	types.Data GetDataFromFile(string file)
-	{
-		var asset = Resources.Load(file) as TextAsset;
-		var stream = new System.IO.MemoryStream (asset.bytes);
-		var data = types.Data.fromMemoryStream (stream,  asset.bytes.Length);
 
-		return data;
-	}
-
-	vectorx.ColorStorage GetBitmapDataFromFile(string file)
-	{
-		var texture = Resources.Load (file) as Texture2D;
-		var bytes = texture.GetRawTextureData ();
-		var stream = new System.IO.MemoryStream(bytes);
-		var data = types.Data.fromMemoryStream (stream,  bytes.Length);
-
-		return new vectorx.ColorStorage (texture.width, texture.height, data);
-	}
-
-	types.Data loadFont(string file)
-	{
-		return GetDataFromFile(file);
-	}
 
 	void TestFontRender()
 	{
-		var arialData = loadFont ("fonts/arial.ttf");
+		var arialData = provider.loadFont ("fonts/arial.ttf");
 		var fontCache = new vectorx.font.FontCache (arialData);
 
 		var str = "abcdefghjiklmnopqrstuvwxyz";
@@ -179,37 +159,17 @@ public class VectorxTest : MonoBehaviour, StyledStringResourceProvider
 		System.Console.Write ("");
 	}
 
-	//private static function loadImage(file: String, origDimensions: Vector2, dimensions: Vector2): ColorStorage
-	vectorx.ColorStorage loadImage(string file, types.Vector2 srcDim, types.Vector2 dstDim)
-	{
-		if (!file.EndsWith("svg.xml"))
-		{
-			return GetBitmapDataFromFile (file);
-		}
-
-		var colorStorage = new vectorx.ColorStorage ((int)dstDim.x, (int)dstDim.y, null);
-
-		var asset = Resources.Load(file) as TextAsset;
-		var xml = Xml.parse (asset.text);
-		var svg = vectorx.svg.SvgContext.parseSvg (xml);
-
-		var scaleX = dstDim.x / srcDim.x;
-		var scaleY = dstDim.y / srcDim.y;
-		var transform = lib.ha.core.geometry.AffineTransformer.scaler (scaleX, scaleY);
-
-		var svgContext = new vectorx.svg.SvgContext ();
-		svgContext.renderVectorBinToColorStorage (svg, colorStorage, transform);
-
-		return colorStorage;
-	}
-
 	void TestStyledString()
 	{
-		var configAsset = Resources.Load("Fonts/styledStringContext.json") as TextAsset;
-		var context = MainCs.createStyledStringContext (configAsset.text, this);
+		var configAsset = Resources.Load("fonts/styledStringContext.json") as TextAsset;
+		var context = MainCs.createStyledStringContext (configAsset.text, provider);
 		var str = "[f=arial_24,c=white]a[f=arial_28]bc[/f]djf{warn}lkdsjf{texture}lkfdsef{calc}[/]";
 		var storage = new vectorx.ColorStorage (512, 512, null);
+
 		context.renderStringToColorStorage (str, storage, null, null);
+
+		var texture = createTexture (storage);
+		GetComponent<Renderer> ().material.mainTexture = texture;
 	}
 
 	void Start () 
@@ -223,7 +183,8 @@ public class VectorxTest : MonoBehaviour, StyledStringResourceProvider
 		//DataTest.testAll ();
 
 		//TestSvg();
-		TestFontRender();
+		//TestFontRender();
+		TestStyledString();
 	}
 	
 	// Update is called once per frame
