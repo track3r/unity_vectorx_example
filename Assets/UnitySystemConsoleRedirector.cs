@@ -18,7 +18,16 @@ public static class UnitySystemConsoleRedirector
 
 		public override void Flush()
 		{
-			Debug.Log(buffer.ToString());
+			var str = buffer.ToString ();
+			if (str.StartsWith("~break"))
+			{
+				Debug.Log ("break");
+				Debug.Break ();
+			}
+			else
+			{
+				Debug.Log (str);	
+			}
 			buffer.Length = 0;
 		}
 
