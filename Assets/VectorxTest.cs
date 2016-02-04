@@ -136,8 +136,6 @@ public class VectorxTest : MonoBehaviour
 		System.Console.Write ("");
 	}
 		
-
-
 	void TestFontRender()
 	{
 		var arialData = provider.loadFont ("fonts/arial.ttf");
@@ -172,6 +170,13 @@ public class VectorxTest : MonoBehaviour
 		GetComponent<Renderer> ().material.mainTexture = texture;
 	}
 
+	void TestException()
+	{
+		System.Console.WriteLine ("test exception");
+
+		var hash = haxe.lang.FieldLookup.hash("defaultFont");
+	}
+
 	void Start () 
 	{
 		UnitySystemConsoleRedirector.Redirect();
@@ -184,6 +189,7 @@ public class VectorxTest : MonoBehaviour
 
 		//TestSvg();
 		//TestFontRender();
+		TestException();
 		TestStyledString();
 	}
 	
