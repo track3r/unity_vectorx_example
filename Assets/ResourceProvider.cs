@@ -42,7 +42,7 @@ namespace Vectorx
 		//private static function loadImage(file: String, origDimensions: Vector2, dimensions: Vector2): ColorStorage
 		public override vectorx.ColorStorage loadImage(string file, types.Vector2 srcDim, types.Vector2 dstDim)
 		{
-			if (!file.EndsWith("svg.xml"))
+			if (!file.EndsWith(".svg"))
 			{
 				return GetBitmapDataFromFile (file);
 			}
