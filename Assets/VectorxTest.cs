@@ -189,7 +189,7 @@ public class VectorxTest : MonoBehaviour
 
 		//TestSvg();
 		//TestFontRender();
-		TestException();
+		//TestException();
 		TestStyledString();
 	}
 	

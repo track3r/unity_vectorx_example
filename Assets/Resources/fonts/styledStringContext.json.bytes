@@ -1,17 +1,17 @@
 {
     "defaultFont": "Fonts/arial.ttf",
-    "loadFonts": [],
+    "loadFonts": ["Fonts/font_1_ant-kaku.ttf", "Fonts/Pacifico.ttf", "Fonts/Walkway_Bold.ttf"],
     "fontAliases": [
         {"alias": "arial_24", "size": 24.0,  "font": "Arial"},
         {"alias": "arial_28", "size": 28.0,  "font": "Arial"}
     ],
 
-    "colors": {
-        "red": "#ff0000ff",
-        "green": "lightseagreen",
-        "white": "white",
-        "blue": "rgb(0, 0, 255)"
-     },
+    "colors": [
+        {"name": "red", "value": "#ff0000ff"},
+        {"name": "green", "value": "lightseagreen"},
+        {"name": "white", "value": "white"},
+        {"name": "blue", "value": "rgb(0, 0, 255)"}
+     ],
 
     "attachments": [
         {"name": "chart", "anchorPoint": 0.4, "image": "svg/bar_chart.svg", "width": 48, "height": 48 },
