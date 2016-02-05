@@ -22,7 +22,11 @@ namespace Vectorx
 
 		public vectorx.ColorStorage GetBitmapDataFromFile(string file)
 		{
-			var texture = Resources.Load (file) as Texture2D;
+			Debug.Log ("Loading bitmap: " + file);
+
+			var asset = Resources.Load (file) as TextAsset;
+			var texture = new Texture2D (2, 2);
+			texture.LoadImage (asset.bytes);
 			var bytes = texture.GetRawTextureData ();
 			var stream = new System.IO.MemoryStream(bytes);
 			var data = types.Data.fromMemoryStream (stream,  bytes.Length);
