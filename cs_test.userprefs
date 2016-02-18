@@ -2,13 +2,28 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/VectorxTest.cs">
     <Files>
-      <File FileName="Assets/VectorxTest.cs" Line="153" Column="23" />
+      <File FileName="Assets/VectorxTest.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/haxe/ds/StringMap.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/vectorx/font/FontCache.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/vectorx/font/StyledStringParser.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/vectorx/font/StyledStringContext.cs" Line="1" Column="1" />
+      <File FileName="Assets/ResourceProvider.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/Std.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/lib/ha/svg/SVGPathTokenizer.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/vectorx/svg/SvgContext.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/lib/ha/svg/SVGPathParser.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/cs/internal/Runtime.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/lib/ha/core/geometry/RectBoxI.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/lib/ha/aggx/renderer/ClippingRenderer.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/vectorx/font/FontAttachmentStorage.cs" Line="1" Column="1" />
+      <File FileName="../../../.duell/lib/vectorx/export-csharp/src/MainCs.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/root1/develop/unity/cs_test/Assets/NewBehaviourScript.cs" line="135" column="1" />
-      <Breakpoint file="/Users/root1/develop/unity/cs_test/Assets/VectorxTest.cs" line="164" column="29" />
+      <Catchpoint exceptionName="System.Exception" includeSubclasses="True" />
+      <Breakpoint file="/Users/root1/develop/unity/cs_test/Assets/VectorxTest.cs" line="164" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

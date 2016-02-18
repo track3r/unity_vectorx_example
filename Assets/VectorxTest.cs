@@ -149,7 +149,8 @@ public class VectorxTest : MonoBehaviour
 
 		var colorStorage = new vectorx.ColorStorage (512, 512, null);
 		var context = new vectorx.font.FontContext ();
-		context.renderStringToColorStorage (attrString, colorStorage, null, null, null);
+		var layout = context.calculateTextLayout (attrString, colorStorage.selectedRect, null, null);
+		context.renderStringToColorStorage (layout, colorStorage, false);
 
 		var texture = createTexture (colorStorage);
 		GetComponent<Renderer> ().material.mainTexture = texture;
@@ -163,8 +164,8 @@ public class VectorxTest : MonoBehaviour
 		var context = MainCs.createStyledStringContext (configAsset.text, provider);
 		var str = "[f=arial_24,c=white]a[f=arial_28]bc[/f]djf{warn}lkdsjf{texture}lkfdsef{calc}[/]";
 		var storage = new vectorx.ColorStorage (512, 512, null);
-
-		context.renderStringToColorStorage (str, storage, null, null);
+		var layout = context.calculateTextLayout (str, storage.selectedRect, null);
+		context.renderStringToColorStorage (layout, storage, false);
 
 		var texture = createTexture (storage);
 		GetComponent<Renderer> ().material.mainTexture = texture;
